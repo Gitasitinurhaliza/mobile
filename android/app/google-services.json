@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "87580194329",
+    "firebase_url": "https://vangtech2024-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "vangtech2024",
+    "storage_bucket": "vangtech2024.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87580194329:android:cc345288af2a79e771dc88",
+        "android_client_info": {
+          "package_name": "com.example.vangtech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87580194329-g21ih0al7vbm5b003e7h311qm869tpoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMvlrNvTO9lQold2--bpbCbPHICQrkrYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87580194329-g21ih0al7vbm5b003e7h311qm869tpoo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87580194329:android:13b90fc51f95faa071dc88",
+        "android_client_info": {
+          "package_name": "com.vangtech.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87580194329-g21ih0al7vbm5b003e7h311qm869tpoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMvlrNvTO9lQold2--bpbCbPHICQrkrYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87580194329-g21ih0al7vbm5b003e7h311qm869tpoo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
