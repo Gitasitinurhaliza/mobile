@@ -3,8 +3,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'dart:io';
 import 'package:vantech/dasboard%20page/dashboard.dart';
+import 'dart:io';
 import 'package:vantech/profil/profil.dart';
 
 // Background message handler must be top-level function
@@ -12,6 +12,36 @@ import 'package:vantech/profil/profil.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   print("Handling a background message: ${message.messageId}");
+
+  // Show notification when the app is in the background
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel',
+    'High Importance Notifications',
+    description: 'This channel is used for important notifications.',
+    importance: Importance.high,
+  );
+
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  await flutterLocalNotificationsPlugin.show(
+    message.hashCode,
+    message.notification?.title,
+    message.notification?.body,
+    NotificationDetails(
+      android: AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        channelDescription: channel.description,
+        importance: Importance.high,
+        priority: Priority.high,
+      ),
+    ),
+  );
 }
 
 class NotificationPage extends StatefulWidget {
@@ -27,7 +57,6 @@ class _NotificationPageState extends State<NotificationPage> {
       FirebaseDatabase.instance.ref("UltrasonicData");
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  // Tambahkan variabel untuk tracking waktu notifikasi
   Map<String, DateTime> _lastNotificationTime = {};
   static const Duration notificationInterval = Duration(minutes: 5);
 
@@ -39,6 +68,7 @@ class _NotificationPageState extends State<NotificationPage> {
   void initState() {
     super.initState();
     _initializeApp();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   Future<void> _initializeApp() async {
@@ -98,10 +128,22 @@ class _NotificationPageState extends State<NotificationPage> {
       },
     );
 
+    // Request notification permission
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
     String? token = await _firebaseMessaging.getToken();
     print("FCM Token: $token");
 
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    DatabaseReference ref = FirebaseDatabase.instance.ref("FCMTokenDevice");
+
+    await ref.set({
+      "token": token,
+    });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Message received in foreground: ${message.notification?.title}');
@@ -116,11 +158,11 @@ class _NotificationPageState extends State<NotificationPage> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('Notification opened: ${message.notification?.title}');
-      // Tangani ketika pengguna mengetuk notifikasi
+      // Handle the notification tap
+      _handleNotificationTap(message.data['payload']);
     });
   }
 
-  // Tambahkan method untuk mengecek interval notifikasi
   Future<bool> _shouldShowNotification(String sensorLabel) async {
     final now = DateTime.now();
     final lastTime = _lastNotificationTime[sensorLabel];
@@ -196,14 +238,12 @@ class _NotificationPageState extends State<NotificationPage> {
 
             print("Sensor: $sensorLabel, Percentage: $percentage");
 
-            if (percentage >= 70 && percentage <= 80) {
-              // Cek interval waktu sebelum menampilkan notifikasi
+            if (percentage >= 70 && percentage <= 100) {
               if (await _shouldShowNotification(sensorLabel)) {
                 await _handleHighCapacity(
                     sensorLabel, percentage, emoji, sensor);
               }
             } else if (percentage >= 0 && percentage <= 10) {
-              // Cek interval waktu sebelum menampilkan notifikasi
               if (await _shouldShowNotification(sensorLabel)) {
                 await _handleLowCapacity(
                     sensorLabel, percentage, emoji, sensor);

@@ -36,10 +36,10 @@ class InformationPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Animasi untuk bagian pertama
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Sampah pada Lingkungan Kampus:',
                 style: TextStyle(
                   fontSize: 16,
@@ -48,10 +48,10 @@ class InformationPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Tantangan dan Solusi',
                 style: TextStyle(
                   fontSize: 16,
@@ -64,10 +64,10 @@ class InformationPage extends StatelessWidget {
                 'Kampus adalah lingkungan dengan aktivitas yang sangat padat, dari kegiatan akademik, perkantoran, hingga mahasiswa yang menjalankan kehidupan sehari-hari. Ini menyebabkan tingginya produksi sampah yang beragam, mulai dari sampah makanan, kertas, plastik, hingga elektronik. Pengelolaan sampah yang tepat di lingkungan kampus sangat penting untuk menjaga kebersihan, kenyamanan, dan kelestarian lingkungan.'),
             const SizedBox(height: 16),
 
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Perbedaan Sampah Organik & Anorganik',
                 style: TextStyle(
                   fontSize: 16,
@@ -80,10 +80,10 @@ class InformationPage extends StatelessWidget {
                 'Sampah organik berasal dari makhluk hidup, sedangkan sampah anorganik merupakan hasil dari benda mati atau buatan manusia. Sampah organik mengandung karbon dan hidrogen serta berasal dari makhluk hidup atau sisa-sisa organisme. Komposisinya lebih kompleks dibandingkan dengan sampah anorganik. Sebaliknya, sampah anorganik tidak mengandung karbon, tersusun dari bahan tak hidup, dan memiliki sifat-sifat mineral. Sampah organik dapat terbakar secara alami saat terkena panas. Sebaliknya, sampah anorganik tidak mudah terbakar secara alami.'),
             const SizedBox(height: 16),
 
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Jenis Sampah di Lingkungan Kampus',
                 style: TextStyle(
                   fontSize: 16,
@@ -96,10 +96,10 @@ class InformationPage extends StatelessWidget {
                 'Memisahkan sampah organik dan non-organik tidak hanya memudahkan pembuangan dan daur ulang, tetapi juga mencegah penumpukan sampah yang bisa menjadi sarang kuman penyebab penyakit. Penumpukan sampah berisiko mencemari udara dan memicu masalah kesehatan, terutama terkait paru-paru dan pernapasan. Selain itu, tumpukan sampah dapat menyebabkan banjir, mencemari air, dan menimbulkan penyakit kulit, mual, muntah, serta diare. Dengan pemisahan sampah, udara lebih sehat, lingkungan bersih, dan pengolahan sampah jadi lebih mudah.'),
             const SizedBox(height: 8),
 
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Jenis Sampah di Lingkungan Kampus',
                 style: TextStyle(
                   fontSize: 16,
@@ -109,10 +109,10 @@ class InformationPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             // Sampah Organik
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Sampah Organik:',
                 style: TextStyle(
                   fontSize: 14,
@@ -128,10 +128,10 @@ class InformationPage extends StatelessWidget {
             ]),
 
             // Sampah Anorganik
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Sampah Anorganik:',
                 style: TextStyle(
                   fontSize: 14,
@@ -147,10 +147,10 @@ class InformationPage extends StatelessWidget {
             ]),
 
             // Sampah Plastik
-            AnimatedOpacity(
+            const AnimatedOpacity(
               opacity: 1.0,
               duration: Duration(seconds: 1),
-              child: const Text(
+              child: Text(
                 'Sampah Plastik:',
                 style: TextStyle(
                   fontSize: 14,
@@ -173,7 +173,7 @@ class InformationPage extends StatelessWidget {
   Widget _buildParagraph(String text) {
     return AnimatedOpacity(
       opacity: 1.0,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       child: Text(
         text,
         style: const TextStyle(
