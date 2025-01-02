@@ -13,6 +13,14 @@
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
 
+        <meta-data
+          android:name="com.google.firebase.messaging.default_notification_icon"
+          android:resource="@mipmap/launcher_icon" />
+
+        <meta-data
+          android:name="com.google.firebase.messaging.default_notification_color"
+          android:resource="@android:color/black" />
+
         <service
             android:name="com.google.firebase.messaging.FirebaseMessagingService"
             android:exported="false">
@@ -34,6 +42,14 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="high_importance_channel" />
+
+        <!-- Firebase auto-init setting -->
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
 
         <activity
             android:name=".MainActivity"

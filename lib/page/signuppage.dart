@@ -178,83 +178,85 @@ class _SignUpPageState extends State<SignUpPage>
               opacity: _fadeAnimation,
               child: SlideTransition(
                 position: _slideAnimation,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 100),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignInPage()),
-                            );
-                          },
-                          child: const Text(
-                            'Sign In',
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 30),
-                        Column(
-                          children: [
-                            const Text(
-                              'Sign up',
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 100),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignInPage()),
+                              );
+                            },
+                            child: const Text(
+                              'Sign In',
                               style: TextStyle(
-                                color: Colors.black87,
+                                color: Colors.black54,
                                 fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.normal,
                               ),
                             ),
-                            const SizedBox(height: 4),
-                            Container(
-                              height: 2,
-                              width: 60,
-                              color: Colors.black87,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    _buildTextField(
-                        'Full Name', _nameController, 'Enter your name', false),
-                    _buildTextField('Your Email', _emailController,
-                        'Enter your email', false),
-                    _buildTextField('Password', _passwordController,
-                        'Enter your password', true),
-                    _buildTextField(
-                        'Confirm Your Password',
-                        _confirmPasswordController,
-                        'Confirm your password',
-                        true),
-                    const SizedBox(height: 32),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _isLoading ? null : _signUp,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF557354),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ),
-                        child: _isLoading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white)
-                            : const Text('Continue'),
+                          const SizedBox(width: 30),
+                          Column(
+                            children: [
+                              const Text(
+                                'Sign up',
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Container(
+                                height: 2,
+                                width: 60,
+                                color: Colors.black87,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 40),
+                      _buildTextField('Full Name', _nameController,
+                          'Enter your name', false),
+                      _buildTextField('Your Email', _emailController,
+                          'Enter your email', false),
+                      _buildTextField('Password', _passwordController,
+                          'Enter your password', true),
+                      _buildTextField(
+                          'Confirm Your Password',
+                          _confirmPasswordController,
+                          'Confirm your password',
+                          true),
+                      const SizedBox(height: 32),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _isLoading ? null : _signUp,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF557354),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: _isLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white)
+                              : const Text('Continue'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

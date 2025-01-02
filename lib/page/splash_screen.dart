@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vantech/dasboard%20page/dashboard.dart'; // Path ke halaman Dashboard
+import 'package:vantech/dashboard/dashboard.dart'; // Path ke halaman Dashboard
 import 'package:vantech/page/home_page.dart'; // Path ke HygieneHeroesHomePage
 
 class SplashScreen extends StatefulWidget {

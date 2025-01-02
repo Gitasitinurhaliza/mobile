@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "vangtech2024",
+  "private_key_id": "047ea19bf329ca5437d34f2651b58f43b9041bc0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCqqTifGudi5H0Q\n1zS4wxzdb6PIopkqJuBqi+a6RyHnYccLKa10tc9zrrvm0bFb2E8e27ebAZ9G7z1/\n88Mc5GBZjHAlIFD3iu6Gqmw+ue3mQuVN7H+U4YE53c2RqMaAqZxDsvdIrYrMvDLy\n/fuEPv2Q+azNn7fnTbP/Y8fodYPvWh1TOJ5wvNLzRdATobuqrWyXuL0CFKzNRib9\ntgHsraCDUFc4d5ARk7cHOfSHIT5+bOtJYws1JEXylX10S/zyYz9m/+Nk97URFEvh\n0gZsLi/CFRURfQQWBef/8wHNUEUbDFyCSqmaqqf5oMixfTsQGs3YLKfU6rs90rDK\nv0H3lBEfAgMBAAECggEAJHuMaSbdNBzYR5NZ5+197DCDeM6Zo5MwAlbp+gRe0RHr\n9Qzx0bNUJ8zAynUlTxcMwvIBbBeKryVRplq76R9BIaOODcG8zU5b81nXTgl9O+4t\nCt114KPcdjxeR7cmyDZ5+1b02gqPU3kgAyYccIbuueFF+acdL0tDIWN5Rs5oZ/Ao\nMDNBRl0a13zeKj5FwRpqnyVaT2jq3XzwIdHuBrcX1gm4lSErK47SPzH7HHxhYMa1\nCuCb81x2bAmDrmVcgtSCjN8bKOJyvxqZubRP3TNqWTL1vdC2nz5buoXo8n8w0JIo\nUafRjYAvJ5IZO4d54Y0tfCvBycgzEvgGWKQkR/2WAQKBgQDeLZGRP14yAj+hV97U\nS1ki+EKpMYMlfhRIGj/XC6JCPB7/K5Nf0ndatPAYffcLHD7TxKB3jE9lgiwnt1tW\nuUbY0SNFS5vbz0krHa1SI+v2f/Za1toRhc+SFTAHBat1cA9joC1SkykLdRujYAZ+\nrgOJluGAbeiDie2lKliMmqIFnwKBgQDEo//51K8K/DZbCukX/TOxtkQX5NQlSZIH\nQdtmnnA5Kfbu5NechF1EyTPtPXhyXdRgXGuezm3cAgu2AASo2dGRNWNuxeV8LyrT\nNiCn1Ebo4kY3PIdPrn2LcJjjmkncysPMjqR/wNUbAWi8QdiUF2jRHNXOwHjKoU9C\nNo6ZXe9EgQKBgH4N/pwZBtl6ux1QXIW4Zk9X6YJTLCRWfy1Vb0kUObA4qiF+WLQy\nFjOpmttahJKSKPc/hQeu3NEr5N93wWPX5OFY7xj+x+QTnGDRCqgi51rIyT5KzhjJ\nAbbRPJmPVvNfa+vLUkuaYNw2SkMMVUMEec9Tgoe6VARleiaOewTzKt/jAoGADfSB\nlw5T+diaVu24Sx6KC6Oew39W2uqUtXUkB+1Yk4X540xUTORL5jTNPZnuMVedWdVV\nQejufP2cLSdlLUKAD+kVDGh49841INYnjSGQgriEOSlPhQUiHcI453YspcGyEZNR\n80sRFKCN+UZHA4OByc1dExYvvFmkUVOj3RiAgYECgYBdrznp5gIJ1RF5bNxqLsFU\ndR+Gw+RgsD0NNWGvXEJCt5ApxOd09zmX/0MVr5jdxMqHUyWWDUeICXnPjBMA66cA\nAK2y1thnex3sF0ZCZWyqmlYtpWOEuZPlzSPW5wf1bA92giDX9Jk2muCazu82KylY\nOJnBpNDNWhbmsjSikBKTdQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-vkulh@vangtech2024.iam.gserviceaccount.com",
+  "client_id": "104544538625660009419",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vkulh%40vangtech2024.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

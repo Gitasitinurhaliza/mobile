@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:vantech/dasboard%20page/dashboard.dart';
-import 'package:vantech/dasboard%20page/notification.dart';
+import 'package:vantech/dashboard/dashboard.dart';
+import 'package:vantech/dashboard/notification.dart';
 import 'package:vantech/profil/editpage.dart';
 import 'package:vantech/profil/logoutpage.dart';
 

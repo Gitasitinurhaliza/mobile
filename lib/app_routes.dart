@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vantech/dasboard%20page/dashboard.dart';
-import 'package:vantech/dasboard%20page/notification.dart';
+import 'package:vantech/dashboard/dashboard.dart';
+import 'package:vantech/dashboard/notification.dart';
 import 'package:vantech/page/forgotpass.dart';
 import 'package:vantech/page/home_page.dart';
 import 'package:vantech/page/signinpage.dart';

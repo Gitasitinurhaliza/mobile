@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vantech/page/signuppage.dart';
 import 'package:vantech/page/forgotpass.dart';
-import 'package:vantech/dasboard%20page/dashboard.dart';
+import 'package:vantech/dashboard/dashboard.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
