@@ -109,7 +109,7 @@ class _HygieneHeroesHomePageState extends State<HygieneHeroesHomePage>
                     // Sign In Button
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const SignInPage(),
@@ -137,7 +137,7 @@ class _HygieneHeroesHomePageState extends State<HygieneHeroesHomePage>
                     // Sign Up Button
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const SignUpPage(),

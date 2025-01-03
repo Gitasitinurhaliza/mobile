@@ -95,10 +95,14 @@ class _SignUpPageState extends State<SignUpPage>
 
         await user.updateDisplayName(name);
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const SuccessPage()),
-        );
+        await FirebaseAuth.instance.signOut();
+
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const SuccessPage()),
+          );
+        }
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage;
@@ -151,27 +155,6 @@ class _SignUpPageState extends State<SignUpPage>
               ),
             ),
           ),
-          Positioned(
-            top: 40,
-            left: 16,
-            child: IconButton(
-              icon: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.arrow_back, color: Colors.black),
-              ),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const HygieneHeroesHomePage()),
-                );
-              },
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: FadeTransition(
@@ -188,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage>
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const SignInPage()),
@@ -259,6 +242,23 @@ class _SignUpPageState extends State<SignUpPage>
                   ),
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            top: 40,
+            left: 16,
+            child: IconButton(
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.arrow_back, color: Colors.black),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ),
         ],

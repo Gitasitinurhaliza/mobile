@@ -145,7 +145,7 @@ class _SuccessPageState extends State<SuccessPage>
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(
                             pageBuilder: (_, __, ___) => const SignInPage(),

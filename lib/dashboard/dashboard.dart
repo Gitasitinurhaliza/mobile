@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:vantech/dashboard/informationpage.dart';
 import 'package:vantech/dashboard/notification.dart';
+import 'package:vantech/profil/customprofile.dart';
 import 'package:vantech/profil/profil.dart';
 // import 'package:vantech/notification_service.dart';
 
@@ -23,13 +24,21 @@ class _HomePageState extends State<HomePage>
 
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
+  late StreamSubscription fireauth;
   String _userName = 'User';
-  final int _currentIndex = 0;
+  int _currentIndex = 0;
+
+  final widgets = [];
 
   @override
   void initState() {
     super.initState();
     _initializeController();
+
+    fireauth = FirebaseAuth.instance.userChanges().listen((User? user) {
+      print('update');
+      _fetchUserProfile();
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _initializeServices();
@@ -102,41 +111,64 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
+    fireauth.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFE5E5E5),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SlideTransition(
-                  position: _slideAnimation,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 40),
-                      _buildProfileHeader(),
-                      const SizedBox(height: 24),
-                      _buildCapacityCard(),
-                      const SizedBox(height: 24),
-                      _buildInteractionSection(),
-                      const SizedBox(height: 16),
-                      _buildInfoCard(),
-                    ],
+    return PopScope(
+      canPop: _currentIndex == 0,
+      onPopInvokedWithResult: (didPop, result) {
+        setState(() {
+          _currentIndex = 0;
+        });
+      },
+      child: Scaffold(
+        appBar: _currentIndex == 1
+            ? AppBar(
+                automaticallyImplyLeading: false,
+                title: _currentIndex == 1
+                    ? const Text('Notifikasi')
+                    : const Text('Profile'))
+            : null,
+        backgroundColor: const Color(0xFFE5E5E5),
+        body: Column(
+          children: [
+            if (_currentIndex == 0)
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 40),
+                          _buildProfileHeader(),
+                          const SizedBox(height: 24),
+                          _buildCapacityCard(),
+                          const SizedBox(height: 24),
+                          _buildInteractionSection(),
+                          const SizedBox(height: 16),
+                          _buildInfoCard(),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          _buildBottomNavigationBar(),
-        ],
+            if (_currentIndex == 1) const NotificationPage(),
+            if (_currentIndex == 2) const ProfilePage(),
+            _buildBottomNavigationBar((index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -146,10 +178,11 @@ class _HomePageState extends State<HomePage>
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         InkWell(
-          onTap: () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfilePage()),
-          ),
+          onTap: () {
+            setState(() {
+              _currentIndex = 2;
+            });
+          },
           borderRadius: BorderRadius.circular(20),
           child: Container(
             padding: const EdgeInsets.symmetric(
@@ -232,7 +265,7 @@ class _HomePageState extends State<HomePage>
     final Map<String, String> sensorLabels = {
       'Sensor1': 'Organik',
       'Sensor2': 'Anorganik',
-      'Sensor3': 'Plastik',
+      'Sensor3': 'Botol Plastik',
     };
 
     final summary = sensorLabels.entries
@@ -335,7 +368,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildBottomNavigationBar() {
+  Widget _buildBottomNavigationBar(Function(int) onTap) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -355,31 +388,26 @@ class _HomePageState extends State<HomePage>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildNavItem(Icons.home_filled, 'Home', const HomePage(), 0),
-            _buildNavItem(Icons.notifications_outlined, 'Notification',
-                const NotificationPage(), 1),
             _buildNavItem(
-                Icons.person_outline, 'Profile', const ProfilePage(), 2),
+                Icons.home_filled, 'Home', const HomePage(), 0, onTap),
+            _buildNavItem(Icons.notifications_outlined, 'Notification',
+                const NotificationPage(), 1, onTap),
+            _buildNavItem(
+                Icons.person_outline, 'Profile', const ProfilePage(), 2, onTap),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, Widget page, int index) {
+  Widget _buildNavItem(IconData icon, String label, Widget page, int index,
+      Function(int) onTap) {
     final isSelected = _currentIndex == index;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
-          onTap: () {
-            if (!isSelected) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => page),
-              );
-            }
-          },
+          onTap: () => onTap(index),
           child: Icon(
             icon,
             color: isSelected ? const Color(0xFF4A6741) : Colors.grey,

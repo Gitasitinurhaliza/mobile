@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:vantech/app_routes.dart';
 import 'package:vantech/firebase_options.dart';
 import 'package:vantech/service/notification_service.dart';
@@ -11,13 +12,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await initializeDateFormatting("id_ID", null);
   await FirebaseMessaging.instance.requestPermission(provisional: true);
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
   FirebaseMessaging.instance.subscribeToTopic("all_users");
-
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print('fcmToken $fcmToken');
 
   await NotificationService().init();
   runApp(const HygieneHeroesApp());
@@ -31,15 +30,6 @@ class HygieneHeroesApp extends StatefulWidget {
 }
 
 class _HygieneHeroesAppState extends State<HygieneHeroesApp> {
-  final NotificationService notificationService = NotificationService();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    notificationService.init();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

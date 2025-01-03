@@ -138,6 +138,7 @@ class _SignInPageState extends State<SignInPage>
 
           // Navigate to home page
           if (mounted) {
+            Navigator.pop(context);
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const HomePage()),
@@ -251,6 +252,7 @@ class _SignInPageState extends State<SignInPage>
       await _saveUserEmail(userCredential.user?.email);
 
       if (mounted) {
+        Navigator.pop(context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomePage()),
@@ -365,7 +367,7 @@ class _SignInPageState extends State<SignInPage>
                         const SizedBox(width: 30),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               PageRouteBuilder(
                                 pageBuilder: (_, __, ___) => const SignUpPage(),

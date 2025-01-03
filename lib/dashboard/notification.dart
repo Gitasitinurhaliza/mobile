@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vantech/components/notification_card.dart';
 import 'package:vantech/dashboard/dashboard.dart';
 import 'package:vantech/profil/profil.dart';
@@ -16,6 +18,7 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   var notifications = [];
   int _currentIndex = 1;
+  late StreamSubscription<DatabaseEvent> _notificationsSubscription;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
   @override
@@ -24,9 +27,25 @@ class _NotificationPageState extends State<NotificationPage> {
     fetchData();
   }
 
+  String convertToDate(int timestamp) {
+    if (timestamp.toString().length == 10) {
+      timestamp *= 1000;
+    }
+
+    // Konversi ke DateTime
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+
+    // Format tanggal
+    String formattedDate =
+        DateFormat("d MMMM yyyy - HH:mm", "id_ID").format(dateTime);
+    return formattedDate;
+  }
+
   void fetchData() {
     DatabaseReference ref = FirebaseDatabase.instance.ref('Notifications');
-    ref.onValue.listen((DatabaseEvent event) {
+
+    _notificationsSubscription =
+        ref.orderByChild('timestamp').onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value as Map<Object?, Object?>;
 
       final mappedData = data.entries.map((entry) {
@@ -39,6 +58,9 @@ class _NotificationPageState extends State<NotificationPage> {
         };
       }).toList();
 
+      mappedData.sort((a, b) => (b['timestamp'] as int)
+          .compareTo(a['timestamp'] as int)); // Descending (terbaru ke terlama)
+
       setState(() {
         notifications = mappedData;
       });
@@ -46,32 +68,16 @@ class _NotificationPageState extends State<NotificationPage> {
   }
 
   @override
+  void dispose() {
+    // Membatalkan subscription ketika widget dihancurkan
+    _notificationsSubscription.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFE5E5E5),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
-          },
-        ),
-        title: const Text(
-          'Notification',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: notifications.isEmpty
+    return Expanded(
+      child: notifications.isEmpty
           ? const Center(
               child: Text(
                 "Notifikasi akan muncul ketika sensor mendeteksi perubahan kapasitas.",
@@ -111,38 +117,12 @@ class _NotificationPageState extends State<NotificationPage> {
                               : Colors.red.withOpacity(0.1),
                       title: notification['title']!,
                       subtitle: notification['body']!,
-                      time: notification['timestamp'].toString(),
+                      time: convertToDate(notification['timestamp']),
                     ),
                   ),
                 );
               },
             ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildNavItem(Icons.home_filled, 'Home', 0),
-              _buildNavItem(Icons.notifications_outlined, 'Notification', 1),
-              _buildNavItem(Icons.person_outline, 'Profile', 2),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
